@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 
 const FormPage1 = ({ setPage2 }) => {
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
     const [invoiceId, setInvoiceId] = useState('');
     const [client, setClient] = useState('');
@@ -13,6 +13,14 @@ const FormPage1 = ({ setPage2 }) => {
     const [discount, setDiscount] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
     const [currency, setCurrencies] = useState('');
+
+    const handleNext = () => {
+        if (invoiceId && client && invoiceDate && discountType && discount && dueDate && currency) {
+            setPage2(true);
+        } else {
+            alert('Please fill out all fields.');
+        }
+    };
 
 
     return (
@@ -118,7 +126,7 @@ const FormPage1 = ({ setPage2 }) => {
             <View style={styles.buttonBox}>
                 <TouchableOpacity
                     // title="    "
-                    onPress={() => { setPage2(true) }}
+                    onPress={handleNext}
                     style={[styles.bottomButton, { backgroundColor: "green" }]}
                 ><Text style={{ color: 'white' }}>Next</Text></TouchableOpacity>
 

@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+// import { useNavigation } from '@react-navigation/native';
 
 const FormPage1 = ({ setPage2, setSavePage }) => {
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
     const [Id, setId] = useState('');
     const [product, setProduct] = useState('');
     const [Qty, setQty] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
     const [tax, setTax] = useState('');
-    const [dueDate, setDueDate] = useState(new Date());
-    const [currency, setCurrencies] = useState('');
     const [amount, setAmount] = useState('');
+
+
+    const validateForm = () => {
+        return Id && product && Qty && unitPrice && tax && amount;
+    };
+
+    const handleNext = () => {
+        if (validateForm()) {
+            setSavePage(true);
+        } else {
+            Alert.alert('Validation Error', 'Please fill out all fields.');
+        }
+    };
 
 
     return (
@@ -56,11 +67,6 @@ const FormPage1 = ({ setPage2, setSavePage }) => {
                         </Picker>
                     </View>
                 </View>
-
-
-
-
-
 
 
                 <View style={styles.inputBox}>
@@ -124,7 +130,7 @@ const FormPage1 = ({ setPage2, setSavePage }) => {
             <View style={styles.buttonBox}>
                 <TouchableOpacity
                     // title="    "
-                    onPress={() => { setSavePage(true) }}
+                    onPress={handleNext}
                     style={[styles.bottomButton, { backgroundColor: "green" }]}
                 ><Text style={{ color: 'white' }}>Next</Text></TouchableOpacity>
 
